@@ -3,6 +3,7 @@ Input: A single video file;
 Output: A single inserted video file.
 """
 
+import shutil
 from mvimp_utils.location import *
 import torch
 from mvimp_utils.ffmpeg_helper import video_fusion, video_extract, frames_info, fps_info
@@ -55,7 +56,10 @@ if __name__ == "__main__":
     video_extract(src=video_file_link, dst=input_data_dir, thread=4)
     # More aggressively exclude possible errors
     for input_file in input_files_list:
-        os.remove(os.path.join(input_data_dir, input_file))
+        try:
+            os.remove(os.path.join(input_data_dir, input_file))
+        except:
+            shutil.rmtree(os.path.join(input_data_dir, input_file))
     print(
         f"\n--------------------SUMMARY--------------------\n"
         f"Current input video file is {args.input_video},\n"
