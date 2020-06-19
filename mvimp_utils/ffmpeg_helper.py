@@ -48,7 +48,7 @@ def video_fusion(src: str, dst: str, fps: float, thread: int) -> None:
         f"-threads {thread} "
         f"-r {fps} "
         f"-f image2 -i {src} "
-        f"-y -c:v libx264rgb -preset placebo -crf 0 {dst}"
+        f"-y -c:v ffv1 -coder 2 -context 1 {dst}"
     )
     print(cmd)
     os.system(cmd)
