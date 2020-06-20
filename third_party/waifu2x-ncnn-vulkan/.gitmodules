@@ -1,3 +1,0 @@
-[submodule "src/ncnn"]
-	path = src/ncnn
-	url = https://github.com/Tencent/ncnn.git
