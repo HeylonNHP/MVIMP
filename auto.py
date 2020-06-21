@@ -56,6 +56,7 @@ for inputfile in ftp.nlst():
     fileObject = open(LOCAL_INPUT_DIR + "/" + inputfile, 'wb')
     print(ftp.pwd() + "/" + inputfile)
     ftp.retrbinary('RETR %s' % ftp.pwd() + "/" + inputfile, fileObject.write)
+    fileObject.close()
     # Run interpolation
     os.system('python3 inference_dain.py --input_video "' + inputfile + '" --time_step 0.125')
     # Grab output
