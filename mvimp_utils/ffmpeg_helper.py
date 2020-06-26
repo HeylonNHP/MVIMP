@@ -33,7 +33,7 @@ def video_extract(src: str, dst: str, thread: int) -> None:
     cmd = (
         f"ffmpeg -hide_banner -loglevel warning "
         f"-threads {thread} "
-        f"-i {src} "
+        f"-vsync 0 -i {src} "
         f"{dst}/%8d.png"
     )
     print(cmd)
