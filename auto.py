@@ -52,7 +52,8 @@ for inputfile in ftp.nlst():
     # Download input file from FTP server
     fileObject = open(LOCAL_INPUT_DIR + "/" + inputfile, 'wb')
     print(ftp.pwd() + "/" + inputfile)
-    ftp.retrbinary('RETR %s' % ftp.pwd() + "/" + inputfile, fileObject.write)
+    responseMsg = ftp.retrbinary('RETR %s' % ftp.pwd() + "/" + inputfile, fileObject.write)
+    print(responseMsg)
     fileObject.close()
     # Run interpolation
     os.system('python3 inference_dain.py --input_video "' + inputfile + '" --time_step ' + INTERPOLATION_TIME_STEP)
@@ -62,7 +63,8 @@ for inputfile in ftp.nlst():
     for (dirpath, dirnames, filenames) in os.walk(LOCAL_OUTPUT_DIR):
         outputFilePath = dirpath + "/" + filenames[0]
         outputFile = open(outputFilePath, 'rb')
-        ftp.storbinary('STOR ' + filenames[0], outputFile)
+        responseMsg = ftp.storbinary('STOR ' + filenames[0], outputFile)
+        print(responseMsg)
         outputFile.close()
         os.remove(outputFilePath)
     changeDirWithRetry("..")
